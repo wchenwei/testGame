@@ -1,0 +1,106 @@
+<configuration>
+    <!-- 过滤第三方 -->
+    <logger name="org.quartz" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+    <logger name="org.apache.commons.httpclient" level="INFO"/>
+
+    <!-- 定义日志文件的相对存储地址日志会默认存储到eclipse所在盘根目录同于System.getProperty("user.dir") -->
+    <property name="LOG_HOME" value="${catalina.home}/../log"/>
+    <property name="LOG_NAME" value="%d{yyyy-MM-dd}-%i.log"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %c{0}:%L [%thread] %-5level %msg%n"/>
+    <property name="LOG_EVENT_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %msg%n"/>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <!-- 信息记录日志-->
+    <appender name="InfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/info/info-${LOG_NAME}</fileNamePattern>
+            <maxHistory>720</maxHistory>  <!--保留4周-->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--警告信息记录-->
+    <appender name="WarnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/warn/warn-${LOG_NAME}</fileNamePattern>
+            <maxHistory>720</maxHistory>  <!--保留4周-->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!--异常日志 -->
+    <appender name="ErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error/error-${LOG_NAME}</fileNamePattern>
+            <maxHistory>720</maxHistory><!--保留4周-->
+            <maxFileSize>50MB</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EVENTLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 文件名格式 -->
+            <fileNamePattern>${LOG_HOME}/event/event-${LOG_NAME}</fileNamePattern>
+            <!-- 每个文件最大 -->
+            <maxFileSize>50MB</maxFileSize>
+            <!-- 日志最大的历史 30天 -->
+            <maxHistory>1000</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <!-- 输出格式化 -->
+            <pattern>${LOG_EVENT_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="INFO"><!-- 需要打印debug日志可以修改打印等级 -->
+        <!-- info级别日志放到info下 -->
+        <appender-ref ref="InfoLog"/>
+        <!-- WARN级别日志放到WARN下 -->
+        <appender-ref ref="WarnLog"/>
+        <!-- error级别日志放到error下 -->
+        <appender-ref ref="ErrorLog"/>
+        <!-- debug级别日志直接标准输出只在调试阶段使用 -->
+        <appender-ref ref="stdout"/>
+    </root>
+
+    <logger name="com.hm.action.event.EventAction" level="info" additivity="false">
+        <appender-ref ref="EVENTLOG"/>
+    </logger>
+
+
+</configuration>

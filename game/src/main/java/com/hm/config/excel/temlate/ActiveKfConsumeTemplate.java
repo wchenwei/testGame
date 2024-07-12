@@ -1,0 +1,48 @@
+package com.hm.config.excel.temlate;
+
+import com.hm.libcore.annotation.FileConfig;
+
+@FileConfig("active_kf_consume")
+public class ActiveKfConsumeTemplate {
+	private Integer id;
+	private Integer player_lv_down;
+	private Integer player_lv_up;
+	private Integer gold_cost;
+	private String reward;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getPlayer_lv_down() {
+		return player_lv_down;
+	}
+
+	public void setPlayer_lv_down(Integer player_lv_down) {
+		this.player_lv_down = player_lv_down;
+	}
+	public Integer getPlayer_lv_up() {
+		return player_lv_up;
+	}
+
+	public void setPlayer_lv_up(Integer player_lv_up) {
+		this.player_lv_up = player_lv_up;
+	}
+	public Integer getGold_cost() {
+		return gold_cost;
+	}
+
+	public void setGold_cost(Integer gold_cost) {
+		this.gold_cost = gold_cost;
+	}
+	public String getReward() {
+		return reward;
+	}
+
+	public void setReward(String reward) {
+		this.reward = reward;
+	}
+}

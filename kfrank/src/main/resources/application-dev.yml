@@ -1,0 +1,76 @@
+#应用配置
+server:
+  port: 8060
+
+spring:
+  devtools:
+    restart:
+      enabled: false  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+
+
+gameconfig:
+  machineId: 0
+  hostName: 192.168.1.67
+  port: 3001
+  httpPort: 3101
+  servertype: 2
+  downloadUrl: http://192.168.1.243/human/cs.zip
+  gmUrl: http://192.168.1.245:19094/renren-admin/
+  loginUrl: http://192.168.1.67:5009
+  rankServerUrl: http://192.168.1.252:7383
+  redisUrl: http://192.168.1.252:7383
+  testPay: true
+  rebateType: 1
+  requestHandler: com.hm.handler.GameHandler
+  startHandler: KFServerStartHandler
+  ActionDispatcherNum: 128
+  debug: true
+  monitor: true
+  useGm: true
+  msgInterval: false
+  payPercent:
+  rpcPort: 12200
+
+redis:
+  host: 192.168.1.253
+  port: 6379
+  dbIndex: 1
+  dbs: 1,2
+
+
+rankredis:
+  host: 192.168.1.253
+  port: 6379
+  dbIndex: 1
+
+centerredis:
+  host: 192.168.1.253
+  port: 6379
+
+
+mongo:
+  mongo_uri: mongodb://192.168.1.217:27017
+  mongo_login_uri: mongodb://192.168.1.217:27017
+  game_dbname_prefix: human_game
+  login_dbname: human_login
+  admin_dbname: human_admin
+
+
+
+threadpool:
+  corePoolSize: 10
+  maxPoolSize: 100
+  queueCapacity: 100
+  keepAliveSeconds: 180
+  threadNamePrefix: player-game-thread
+
+
+h5:
+  SSLKeyPath: /data/h5tank/key.jks
+  SSLKeyPwd: xiaoaogame
+  SslServer: false
+  openH5: true

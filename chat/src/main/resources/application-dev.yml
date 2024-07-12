@@ -1,0 +1,45 @@
+#应用配置
+server:
+  port: 8021
+
+spring:
+  devtools:
+    restart:
+      enabled: false  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+
+redis:
+  host: 192.168.1.253
+  port: 6379
+  dbIndex: 1
+
+mongo:
+  mongo_uri: mongodb://192.168.1.217:27017
+  mongo_login_uri: mongodb://192.168.1.217:27017
+  game_dbname_prefix: human_game
+  login_dbname: human_login
+  chat_dbname: human_chat
+
+gameconfig:
+  machineId: 7
+  servertype: 1 #0-游戏服 1-聊天服
+  port: 7011
+  httpPort: 7021
+  innerPort: 7012
+  downloadUrl: http://192.168.1.243/human/cs.zip
+  gmUrl: http://192.168.1.245:19094/renren-admin/
+  requestHandler: com.hm.handler.ChatHandler
+  ActionDispatcherNum: 128
+  debug: false
+  chatcheckkey: HGWLTANK3CHATKEY20220428
+  badWordSave: true
+
+threadpool:
+  corePoolSize: 10
+  maxPoolSize: 100
+  queueCapacity: 100
+  keepAliveSeconds: 180
+  threadNamePrefix: player-game-thread

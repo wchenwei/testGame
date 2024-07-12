@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.hg</groupId>
+		<artifactId>HumanGame</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>com.hm.human</groupId>
+	<artifactId>kfrank</artifactId>
+	<version>1.0.0</version>
+	<name>kfrank</name>
+	<packaging>war</packaging>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus_snapshots</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>http://123.52.43.116:29087/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus_public</id>
+			<name>nexus-public</name>
+			<url>http://123.52.43.116:29087/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
+
+	<properties>
+		<maven.compiler.source>8</maven.compiler.source>
+		<maven.compiler.target>8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<start-class>com.hmkf.GameApplication</start-class>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hg</groupId>
+			<artifactId>game</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<finalName>KFRank</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<packagingExcludes>
+						*.jsp,
+						WEB-INF/classes/application.yml,
+						%regex[WEB-INF/lib/(?!slg|core|message|game|lib-).*.*.jar]
+					</packagingExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${mavenPlugin.version}</version>
+				<configuration>
+					<compilerVersion>${java.version}</compilerVersion>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>    <!--默认关掉单元测试 -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
